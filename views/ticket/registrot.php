@@ -24,7 +24,7 @@
     </select>
 
     <label for="descripcion">Descripción</label>
-    <textarea name="descripcion"><?=isset($tic) && is_object($tic) ? $tic->descripcion : ''; ?></textarea>
+    <textarea name="descripcion" required><?=isset($tic) && is_object($tic) ? $tic->descripcion : ''; ?></textarea>
 
     <input type="submit" value="Aceptar" class="button button-small">
 

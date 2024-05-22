@@ -12,7 +12,7 @@
     <input type="text" name="nombre" value="<?=isset($are) && is_object($are) ? $are->nombre : ''; ?>" required/>
     
     <label for="descripcion">Descripcion</label>
-    <textarea name="descripcion"><?=isset($are) && is_object($are) ? $are->descripcion : ''; ?></textarea>
+    <textarea name="descripcion" required><?=isset($are) && is_object($are) ? $are->descripcion : ''; ?></textarea>
     <!--<input type="text" name = "descripcion" value=" entra la condicion de $area->descripcion">-->
 
     <input type="submit" value="Aceptar" class="button button-small">

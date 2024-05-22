@@ -4,6 +4,7 @@
     $cmb = $_GET['cmb'];
     $c = $_GET['c'];
     $d = $_GET['d'];
+    date_default_timezone_set("America/Lima");
     $fecha = date('d-m-Y');
     $e = $_GET['e'];
     $f = $_GET['f'];

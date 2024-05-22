@@ -98,7 +98,7 @@ class Ticket{
     }
 
     public function save(){
-        $sql = "INSERT INTO tickets VALUES(NULL, '{$this->getId_usuario()}', (SELECT id FROM usuarios WHERE id_categoria = '{$this->getId_categoria()}' ORDER BY RAND () LIMIT 1), '{$this->getId_categoria()}', '{$this->getAsunto()}', '{$this->getDescripcion()}', 'PENDIENTE', CURDATE(), CURDATE(), NULL);";
+        $sql = "INSERT INTO tickets VALUES(NULL, '{$this->getId_usuario()}', (SELECT id FROM usuarios WHERE id_categoria = '{$this->getId_categoria()}' ORDER BY RAND () LIMIT 1), '{$this->getId_categoria()}', '{$this->getAsunto()}', '{$this->getDescripcion()}', 'PENDIENTE', CURDATE(), CURDATE(), CURRENT_TIME());";
         $save = $this->db->query($sql);
 
         $result = false;

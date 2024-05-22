@@ -90,6 +90,7 @@
         <tr>
             <th class="tbn">N°</th>
             <th class="tbf">APERTURA</th>
+            <th class="tbf">HORA</th>
             <th>ASUNTO</th>
             <th>DESCRIPCIÓN</th>
             <th>USUARIO</th>
@@ -103,6 +104,7 @@
         <tr>
             <td><?=$ti->id?></td>
             <td><?=$ti->fecha_ini?></td>
+            <td><?=$ti->horain?></td>
             <td><?=$ti->asunto?></td>
             <td><?=$ti->descripcion?></td>
             <td><?=$ti->nombreu?> <?=$ti->apellidosu?></td>
