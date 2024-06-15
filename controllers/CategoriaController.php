@@ -48,8 +48,25 @@ class categoriaController{
     }
 
     public function gestion(){
+        //Paginador
+        if(isset($_GET['pag'])){
+            $pag = $_GET['pag'];
+        }else{
+            $pag = 1;
+        }
+
+        $limite = 4;
+        $offset = ($pag-1)*$limite;
+
         $categoria = new Categoria();
-        $categorias = $categoria->getAll();
+        $categoria->setOffset($offset);
+        $categoria->setLimite($limite);
+        $categorias = $categoria->getAllpag();
+
+        $total = $categoria->getAlltotal();
+
+        $totalP = ceil($total/$limite);
+        $totalPag = $totalP;
 
         require_once 'views/categoria/gestionCa.php';
     }

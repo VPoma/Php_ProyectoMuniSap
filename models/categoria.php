@@ -4,6 +4,10 @@ class Categoria{
     private $id;
     private $nombre;
     private $descripcion;
+    //variables extra
+    private $limite;
+    private $offset;
+    //
     private $db;
 
     public function __construct(){
@@ -22,6 +26,16 @@ class Categoria{
         return $this->descripcion;
     }
 
+    //variables extra
+    function getLimite(){
+        return $this->limite;
+    }
+
+    function getOffset(){
+        return $this->offset;
+    }
+    //
+
     function setId($id){
         $this->id = $id;
     }
@@ -33,6 +47,30 @@ class Categoria{
     function setDescripcion($descripcion){
         $this->descripcion = $this->db->real_escape_string($descripcion);
     }
+
+    //variables extra
+    function setLimite($limite){
+        $this->limite = $limite;
+    }
+
+    function setOffset($offset){
+        $this->offset = $offset;
+    }
+    //
+
+    //Consultas
+
+    //Paginador
+    public function getAllpag(){
+        $categorias = $this->db->query("SELECT * FROM categorias LIMIT {$this->getOffset()},{$this->getLimite()};");
+        return $categorias;
+    }
+
+    public function getAlltotal(){
+        $categorias  = $this->db->query("SELECT * FROM categorias");
+        return $categorias ->num_rows;
+    }
+    //
 
     public function getAll(){
         $categorias = $this->db->query("SELECT * FROM categorias ORDER BY nombre;");

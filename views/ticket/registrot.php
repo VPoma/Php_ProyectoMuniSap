@@ -10,8 +10,23 @@
 
     <input type="hidden" value="<?=$_SESSION['identity']->id?>" name="usuario"/>
 
+    <!-- Problemas Frecuentes-->
+    <label for="asunto">¿Problemas Adversos?</label>
+    <div style="display: flex;">
+        <select name="asunto" id="caja1" class="selectprob" disabled>
+            <option value="Teclado Inoperativo">Teclado Inoperativo</option>
+            <option value="Mouse Inoperativo">Mouse Inoperativo</option>
+        </select>
+        
+        <input type="hidden" id="caja2" value="Problemas Adversos" name="descripcion" disabled/>
+
+        <input type="button" value="Activar" class="button" style="padding: 4px; margin-left: 5px;" onclick="activarcaja()">
+        <input type="button" value="Desactv" class="button" style="padding: 4px; margin-left: 4px; background: rgb(243, 136, 5); border: 1px solid rgb(243, 136, 5);" onclick="desactivarcaja()">
+    </div>
+    <!---->
+
     <label for="asunto">Asunto</label>
-    <input type="text" name="asunto" value="<?=isset($tic) && is_object($tic) ? $tic->asunto : ''; ?>" required/>
+    <input type="text" name="asunto" id="caja3" value="<?=isset($tic) && is_object($tic) ? $tic->asunto : ''; ?>" required/>
 
     <label for="categoria">Categoria</label>
     <?Php $categorias = utils::showCatTick(); ?>
@@ -24,7 +39,7 @@
     </select>
 
     <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" required><?=isset($tic) && is_object($tic) ? $tic->descripcion : ''; ?></textarea>
+    <textarea id="caja4" name="descripcion" required><?=isset($tic) && is_object($tic) ? $tic->descripcion : ''; ?></textarea>
 
     <input type="submit" value="Aceptar" class="button button-small">
 
@@ -35,3 +50,18 @@
     </div>
 
 </form>
+
+<script type="text/javascript">
+    function activarcaja(){
+        document.getElementById('caja1').disabled=false
+        document.getElementById('caja2').disabled=false
+        document.getElementById('caja3').disabled=true
+        document.getElementById('caja4').disabled=true
+    }
+    function desactivarcaja(){
+        document.getElementById('caja1').disabled=true
+        document.getElementById('caja2').disabled=true
+        document.getElementById('caja3').disabled=false
+        document.getElementById('caja4').disabled=false
+    }
+</script>

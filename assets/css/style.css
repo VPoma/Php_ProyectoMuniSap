@@ -1042,6 +1042,17 @@ margin-top: 12px;
      color: rgb(7, 7, 7);
 }
 
+/*Boton Problemas Adversos*/
+
+select:disabled {
+	background: #628fdc;
+}
+
+.selectprob{
+     width:70%;
+     margin-left: 6%; 
+     margin-top:12px;
+}
 
 /*Central*/
 
