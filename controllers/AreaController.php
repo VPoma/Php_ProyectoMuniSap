@@ -46,8 +46,25 @@ class areaController{
     }
 
     public function gestion(){
+        //Paginador
+        if(isset($_GET['pag'])){
+            $pag = $_GET['pag'];
+        }else{
+            $pag = 1;
+        }
+
+        $limite = 4;
+        $offset = ($pag-1)*$limite;
+
         $area = new Area();
-        $areas = $area->getAll();
+        $area->setOffset($offset);
+        $area->setLimite($limite);
+        $areas = $area->getAllpag();
+
+        $total = $area->getAlltotal();
+
+        $totalP = ceil($total/$limite);
+        $totalPag = $totalP;
 
         require_once 'views/area/gestionA.php';
     }

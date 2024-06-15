@@ -36,4 +36,12 @@
             </td>
         </tr>
     <?Php endwhile; ?>
+    <tr>
+        <!--Paginador-->
+        <td class="text-center" colspan="4">
+        <?Php for($i=1; $i<=$totalPag; $i++): ?>
+            <a href="<?=base_url?>area/gestion&pag=<?=$i?>"><?=$i?></a> -
+        <?Php endfor; ?>
+        </td>
+    </tr>
 </table>

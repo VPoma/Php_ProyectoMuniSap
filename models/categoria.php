@@ -68,7 +68,7 @@ class Categoria{
 
     public function getAlltotal(){
         $categorias  = $this->db->query("SELECT * FROM categorias");
-        return $categorias ->num_rows;
+        return $categorias->num_rows;
     }
     //
 
