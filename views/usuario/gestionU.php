@@ -20,6 +20,12 @@
 
 <br>
 
+<?Php if(isset($user) && is_object($user)):?>
+    <?Php $url_action = base_url."usuario/filtrousr";?>
+<?Php else:?>
+    <?Php $url_action = base_url."usuario/gestion";?>
+<?Php endif;?>
+
 <form action="<?=base_url?>usuario/filtrousr" method="POST" enctype="multipart/form-data">
     <table class="tablafilt">
         <tr>
@@ -36,7 +42,7 @@
                                 TODOS
                         </option>
                     <?Php while($ar = $areas->fetch_object()): ?>
-                        <option value="<?=$ar->id?>" <?=isset($user) && is_object($user) && $ar->id == $user->id_area ? 'selected' : ''; ?>>
+                        <option value="<?=$ar->id?>">
                             <?=$ar->nombre?>
                         </option>
                     <?Php endwhile; ?>
@@ -51,29 +57,39 @@
 <br>
 
 <table class="tablita">
-        <tr>
-            <th>ID</th>
-            <th>NOMBRE</th>
-            <th>APELLIDOS</th>
-            <th>CORREO</th>
-            <th>ÁREA</th>
-            <th>CATEGORIA</th>
-            <th>TIPO</th>
-            <th>ACCIONES</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>APELLIDOS</th>
+        <th>CORREO</th>
+        <th>ÁREA</th>
+        <th>CATEGORIA</th>
+        <th>TIPO</th>
+        <th>ACCIONES</th>
+    </tr>
     <?Php while($user= $usuarios->fetch_object()): ?>
-        <tr>
-            <td><?=$user->id; ?></td>
-            <td><?=$user->nombre; ?></td>
-            <td><?=$user->apellidos; ?></td>
-            <td><?=$user->email; ?></td>
-            <td><?=$user->arnombre; ?></td>
-            <td><?=$user->catnombre; ?></td>
-            <td><?=$user->tipo; ?></td>
-            <td>
-                <a href="<?=base_url?>usuario/edit&id=<?=$user->id?>" class="button button-gestion ">Editar</a>
-                <a href="<?=base_url?>usuario/eliminar&id=<?=$user->id?>" class="button button-gestion button-red">Eliminar</a>
-            </td>
-        </tr>
+    <tr>
+        <td><?=$user->id; ?></td>
+        <td><?=$user->nombre; ?></td>
+        <td><?=$user->apellidos; ?></td>
+        <td><?=$user->email; ?></td>
+        <td><?=$user->arnombre; ?></td>
+        <td><?=$user->catnombre; ?></td>
+        <td><?=$user->tipo; ?></td>
+        <td>
+            <a href="<?=base_url?>usuario/edit&id=<?=$user->id?>" class="button button-gestion ">Editar</a>
+            <a href="<?=base_url?>usuario/eliminar&id=<?=$user->id?>" class="button button-gestion button-red">Eliminar</a>
+        </td>
+    </tr>
     <?Php endwhile; ?>
+    <tr>
+        <!--Paginador-->
+        <td class="text-center" colspan="8">
+        <?Php if(isset($totalPag)): ?>
+            <?Php for($i=1; $i<=$totalPag; $i++): ?>
+                <a href="<?=base_url?>usuario/gestion&pag=<?=$i?>"><?=$i?></a> -
+            <?Php endfor; ?>
+        <?Php endif; ?>
+        </td>
+    </tr>
 </table>

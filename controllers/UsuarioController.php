@@ -131,8 +131,25 @@ class usuarioController{
     }
 
     public function gestion(){
+        //Paginador
+        if(isset($_GET['pag'])){
+            $pag = $_GET['pag'];
+        }else{
+            $pag = 1;
+        }
+
+        $limite = 6;
+        $offset = ($pag-1)*$limite;
+
         $usuario = new Usuario();
-        $usuarios = $usuario->getAllFilUsr();
+        $usuario->setOffset($offset);
+        $usuario->setLimite($limite);
+        $usuarios = $usuario->getAllpag();
+
+        $total = $usuario->getAlltotal();
+
+        $totalP = ceil($total/$limite);
+        $totalPag = $totalP;
 
         require_once 'views/usuario/gestionU.php';
     }
@@ -142,13 +159,32 @@ class usuarioController{
             $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
             $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
             $area = isset($_POST['area']) ? $_POST['area'] : false;
-            
-            $usuario = new Usuario();
-            $usuario->setNombre($nombre);
-            $usuario->setApellidos($apellidos);
-            $usuario->setId_area($area);
 
-            $usuarios = $usuario->getAllFilUsr();
+            $usuario = new Usuario();
+
+            /*Utilizando strlen(trim($?)) para calcular la cantidad de digitos
+            Logre realizar la consulta IF*/
+            if(strlen(trim($area)) == 0 && strlen(trim($nombre)) == 0 && strlen(trim($apellidos)) == 0){      
+            /*
+                $limite = 6;
+                $offset = 0;
+                $usuario->setOffset($offset);
+                $usuario->setLimite($limite);
+                $usuarios = $usuario->getAllpag();
+        
+                $total = $usuario->getAlltotal();
+        
+                $totalP = ceil($total/$limite);
+                $totalPag = $totalP;*/
+
+                echo '<script>window.location="'.base_url.'usuario/gestion"</script>';
+            }else{
+                $usuario->setNombre($nombre);
+                $usuario->setApellidos($apellidos);
+                $usuario->setId_area($area);
+                $usuarios = $usuario->getAllFilUsr();
+            }
+
         }
         require_once 'views/usuario/gestionU.php';
     }

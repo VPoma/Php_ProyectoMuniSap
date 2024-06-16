@@ -19,22 +19,22 @@
 <?Php Utils::deleteSession('delete');?>
 
 <table class="tablita">
-        <tr>
-            <th>ID</th>
-            <th>NOMBRE</th>
-            <th>DESCRIPCIÓN</th>
-            <th>ACCIONES</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCIÓN</th>
+        <th>ACCIONES</th>
+    </tr>
     <?Php while($ar= $areas->fetch_object()): ?>
-        <tr>
-            <td><?=$ar->id; ?></td>
-            <td><?=$ar->nombre; ?></td>
-            <td><?=$ar->descripcion; ?></td>
-            <td>
-                <a href="<?=base_url?>area/edit&id=<?=$ar->id?>" class="button button-gestion ">Editar</a>
-                <a href="<?=base_url?>area/eliminar&id=<?=$ar->id?>" class="button button-gestion button-red">Eliminar</a>
-            </td>
-        </tr>
+    <tr>
+        <td><?=$ar->id; ?></td>
+        <td><?=$ar->nombre; ?></td>
+        <td><?=$ar->descripcion; ?></td>
+        <td>
+            <a href="<?=base_url?>area/edit&id=<?=$ar->id?>" class="button button-gestion ">Editar</a>
+            <a href="<?=base_url?>area/eliminar&id=<?=$ar->id?>" class="button button-gestion button-red">Eliminar</a>
+        </td>
+    </tr>
     <?Php endwhile; ?>
     <tr>
         <!--Paginador-->

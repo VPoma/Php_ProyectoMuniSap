@@ -223,3 +223,10 @@ SELECT c.nombre as 'categoria', t.estado as 'estado', COUNT(t.id) as 'cantidad' 
 SELECT COUNT(id_categoria) AS 'total' FROM tickets;
 
 SELECT COUNT(id_categoria) AS 'total' FROM tickets WHERE id_usuario = '2' AND fecha_ini BETWEEN '2024-01-01' AND '2024-02-28';
+
+
+SELECT u.id, u.nombre, u.apellidos, u.email, u.tipo, a.nombre As 'arnombre', c.nombre As 'catnombre' FROM usuarios u
+                INNER JOIN areas a ON a.id = u.id_area
+                INNER JOIN categorias c ON c.id = u.id_categoria
+                WHERE u.nombre like '%a%' AND u.apellidos like '%%'
+                AND a.id like '%%' LIMIT 6,6;

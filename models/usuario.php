@@ -10,6 +10,10 @@ class Usuario{
     private $tipo;
     private $id_categoria;
     private $imagen;
+    //variables extra
+    private $limite;
+    private $offset;
+    //
     private $db;
 
     public function __construct(){
@@ -52,6 +56,16 @@ class Usuario{
         return $this->imagen;
     }
 
+    //variables extra
+    function getLimite(){
+        return $this->limite;
+    }
+
+    function getOffset(){
+        return $this->offset;
+    }
+    //
+
     function setId($id){
         $this->id = $id;
     }
@@ -89,6 +103,17 @@ class Usuario{
         //$this->imagen = $this->db->real_escape_string($imagen);
     }
 
+    //variables extra
+    function setLimite($limite){
+        $this->limite = $limite;
+    }
+
+    function setOffset($offset){
+        $this->offset = $offset;
+    }
+    //
+
+
     public function getAll(){
         $usuarios = $this->db->query("SELECT * FROM USUARIOS ORDER BY nombre;");
         return $usuarios;
@@ -108,13 +133,40 @@ class Usuario{
         $usuarios = $this->db->query($sql);
         return $usuarios;
     }
-
+    
+    /*
     public function getAllFilUsr(){
         $sql = "SELECT u.id, u.nombre, u.apellidos, u.email, u.tipo, a.nombre As 'arnombre', c.nombre As 'catnombre' FROM usuarios u "
                 . "INNER JOIN areas a ON a.id = u.id_area "
                 . "INNER JOIN categorias c ON c.id = u.id_categoria "
                 . "WHERE u.nombre like '%{$this->getNombre()}%' AND u.apellidos like '%{$this->getApellidos()}%' "
                 . "AND a.id like '%{$this->getId_area()}%' ORDER BY c.nombre;";
+        $usuarios = $this->db->query($sql);
+        return $usuarios;
+    }*/
+
+    //Paginador
+    public function getAllpag(){
+        $sql = "SELECT u.id, u.nombre, u.apellidos, u.email, u.tipo, a.nombre As 'arnombre', c.nombre As 'catnombre' FROM usuarios u "
+                . "INNER JOIN areas a ON a.id = u.id_area "
+                . "INNER JOIN categorias c ON c.id = u.id_categoria "
+                . "LIMIT {$this->getOffset()},{$this->getLimite()};";
+        $usuarios = $this->db->query($sql);
+        return $usuarios;
+    }
+
+    public function getAlltotal(){
+        $areas  = $this->db->query("SELECT * FROM usuarios");
+        return $areas->num_rows;
+    }
+    //
+
+    public function getAllFilUsr(){
+        $sql = "SELECT u.id, u.nombre, u.apellidos, u.email, u.tipo, a.nombre As 'arnombre', c.nombre As 'catnombre' FROM usuarios u "
+                . "INNER JOIN areas a ON a.id = u.id_area "
+                . "INNER JOIN categorias c ON c.id = u.id_categoria "
+                . "WHERE u.nombre like '%{$this->getNombre()}%' AND u.apellidos like '%{$this->getApellidos()}%' "
+                . "AND a.id like '%{$this->getId_area()}%'";
         $usuarios = $this->db->query($sql);
         return $usuarios;
     }
