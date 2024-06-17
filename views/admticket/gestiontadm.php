@@ -131,4 +131,14 @@
             </td>
         </tr>
     <?Php endwhile; ?>
+    <tr>
+        <!--Paginador-->
+        <td class="text-center" colspan="11">
+        <?Php if(isset($totalPag)): ?>
+            <?Php for($i=1; $i<=$totalPag; $i++): ?>
+                <a href="<?=base_url?>ticket/gestionadm&pag=<?=$i?>"><?=$i?></a> -
+            <?Php endfor; ?>
+        <?Php endif; ?>
+        </td>
+    </tr>
 </table>

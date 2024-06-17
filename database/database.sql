@@ -230,3 +230,8 @@ SELECT u.id, u.nombre, u.apellidos, u.email, u.tipo, a.nombre As 'arnombre', c.n
                 INNER JOIN categorias c ON c.id = u.id_categoria
                 WHERE u.nombre like '%a%' AND u.apellidos like '%%'
                 AND a.id like '%%' LIMIT 6,6;
+
+SELECT t.*, u.nombre as 'nombreu', u.apellidos as 'apellidosu', ue.nombre as 'nombree', ue.apellidos as 'apellidose',c.nombre as 'categoria' FROM tickets t
+        INNER JOIN usuarios u ON u.id = t.id_usuario INNER JOIN usuarios ue ON ue.id = t.id_upersonal INNER JOIN categorias c ON c.id = t.id_categoria
+        WHERE t.id_usuario = 2 ORDER BY id DESC LIMIT 3,3;
+

@@ -11,6 +11,10 @@ class Ticket{
     private $fecha_ini;
     private $fecha_fin;
     private $prioridad;
+    //variables extra
+    private $limite;
+    private $offset;
+    //
     private $db;
 
     public function __construct(){
@@ -57,6 +61,16 @@ class Ticket{
         return $this->prioridad;
     }
 
+    //variables extra
+    function getLimite(){
+        return $this->limite;
+    }
+
+    function getOffset(){
+        return $this->offset;
+    }
+    //
+
     function setId($id){
         $this->id = $id;
     }
@@ -97,6 +111,16 @@ class Ticket{
         $this->prioridad = $prioridad;
     }
 
+    //variables extra
+    function setLimite($limite){
+        $this->limite = $limite;
+    }
+
+    function setOffset($offset){
+        $this->offset = $offset;
+    }
+    //    
+
     public function save(){
         $sql = "INSERT INTO tickets VALUES(NULL, '{$this->getId_usuario()}', (SELECT id FROM usuarios WHERE id_categoria = '{$this->getId_categoria()}' ORDER BY RAND () LIMIT 1), '{$this->getId_categoria()}', '{$this->getAsunto()}', '{$this->getDescripcion()}', 'PENDIENTE', CURDATE(), CURDATE(), CURRENT_TIME());";
         $save = $this->db->query($sql);
@@ -113,6 +137,56 @@ class Ticket{
         $tickets = $this->db->query("SELECT * FROM tickets ORDER BY id DESC;");
         return $tickets;
     }
+    
+    //Paginador
+    public function getAllpag(){
+        $sql = "SELECT t.*, u.nombre as 'nombreu', u.apellidos as 'apellidosu', ue.nombre as 'nombree', " 
+                . "ue.apellidos as 'apellidose',c.nombre as 'categoria' FROM tickets t "
+                . "INNER JOIN usuarios u ON u.id = t.id_usuario " 
+                . "INNER JOIN usuarios ue ON ue.id = t.id_upersonal "
+                . "INNER JOIN categorias c ON c.id = t.id_categoria "
+                . "ORDER BY id DESC LIMIT {$this->getOffset()},{$this->getLimite()};";
+        $usuarios = $this->db->query($sql);
+        return $usuarios;
+    }
+
+    public function getAllpage(){
+        $sql = "SELECT t.*, u.nombre as 'nombreu', u.apellidos as 'apellidosu', ue.nombre as 'nombree', " 
+                . "ue.apellidos as 'apellidose',c.nombre as 'categoria' FROM tickets t "
+                . "INNER JOIN usuarios u ON u.id = t.id_usuario " 
+                . "INNER JOIN usuarios ue ON ue.id = t.id_upersonal "
+                . "INNER JOIN categorias c ON c.id = t.id_categoria "
+                . "WHERE t.id_upersonal = {$this->getId_upersonal()} ORDER BY id DESC LIMIT {$this->getOffset()},{$this->getLimite()};";
+        $usuarios = $this->db->query($sql);
+        return $usuarios;
+    }
+
+    public function getAllpagu(){
+        $sql = "SELECT t.*, u.nombre as 'nombreu', u.apellidos as 'apellidosu', ue.nombre as 'nombree', " 
+                . "ue.apellidos as 'apellidose',c.nombre as 'categoria' FROM tickets t "
+                . "INNER JOIN usuarios u ON u.id = t.id_usuario " 
+                . "INNER JOIN usuarios ue ON ue.id = t.id_upersonal "
+                . "INNER JOIN categorias c ON c.id = t.id_categoria "
+                . "WHERE t.id_usuario = {$this->getId_usuario()} ORDER BY id DESC LIMIT {$this->getOffset()},{$this->getLimite()};";
+        $usuarios = $this->db->query($sql);
+        return $usuarios;
+    }
+
+    public function getAlltotal(){
+        $areas  = $this->db->query("SELECT * FROM tickets");
+        return $areas->num_rows;
+    }
+
+    public function getAlltotale(){
+        $areas  = $this->db->query("SELECT * FROM tickets WHERE id_upersonal = {$this->getId_upersonal()}");
+        return $areas->num_rows;
+    }
+
+    public function getAlltotalu(){
+        $areas  = $this->db->query("SELECT * FROM tickets WHERE id_usuario = {$this->getId_usuario()}");
+        return $areas->num_rows;
+    }
+    //Paginador
 
     public function getAlltick(){
         $sql = "SELECT t.*, u.nombre as 'nombreu', u.apellidos as 'apellidosu', ue.nombre as 'nombree', " 

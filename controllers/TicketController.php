@@ -52,19 +52,40 @@ class ticketController{
     }
 
     public function gestion(){
+        //Paginador
+        if(isset($_GET['pag'])){
+            $pag = $_GET['pag'];
+        }else{
+            $pag = 1;
+        }
+
+        $limite = 10;
+        $offset = ($pag-1)*$limite;
+
         $ticket = new Ticket();
+        $ticket->setOffset($offset);
+        $ticket->setLimite($limite);
 
         if(isset($_SESSION['admin'])){
-            $tickets = $ticket->getAllfiltick();
+            $tickets = $ticket->getAllpag();
+
+            $total = $ticket->getAlltotal();
         }elseif(isset($_SESSION['employed'])){
             $id = $_SESSION['identity']->id;
             $ticket->setId_upersonal($id);
-            $tickets = $ticket->getAllfilticke();
+            $tickets = $ticket->getAllpage();
+
+            $total = $ticket->getAlltotale();
         }elseif(isset($_SESSION['identity'])){
             $id = $_SESSION['identity']->id;
             $ticket->setId_usuario($id);
-            $tickets = $ticket->getAllticku();
+            $tickets = $ticket->getAllpagu();
+
+            $total = $ticket->getAlltotalu();
         }
+
+        $totalP = ceil($total/$limite);
+        $totalPag = $totalP;
 
         require_once 'views/ticket/gestiont.php';
     }
@@ -79,25 +100,32 @@ class ticketController{
             $estado = isset($_POST['estado']) ? $_POST['estado'] : false;
             
             $ticket = new Ticket();
-            $ticket->setId($id);
-            $ticket->setId_usuario($usuario);
-            $ticket->setId_upersonal($personal);
-            $ticket->setFecha_ini($fechaini);
-            $ticket->setId_categoria($categoria);
-            $ticket->setEstado($estado);
 
-            //$tickets = $ticket->getAllfiltick();
+            if(strlen(trim($id)) == 0 && strlen(trim($usuario)) == 0 && strlen(trim($personal)) == 0 && strlen(trim($fechaini)) == 0 && strlen(trim($categoria)) == 0 && strlen(trim($estado)) == 0){
+                
+                echo '<script>window.location="'.base_url.'ticket/gestion"</script>';
 
-            if(isset($_SESSION['admin'])){
-                $tickets = $ticket->getAllfiltick();
-            }elseif(isset($_SESSION['employed'])){
-                $ida = $_SESSION['identity']->id;
-                $ticket->setId_upersonal($ida);
-                $tickets = $ticket->getAllfilticke();
-            }elseif(isset($_SESSION['identity'])){
-                $ida = $_SESSION['identity']->id;
-                $ticket->setId_usuario($ida);
-                $tickets = $ticket->getAllfilticku();
+            }else{
+                $ticket->setId($id);
+                $ticket->setId_usuario($usuario);
+                $ticket->setId_upersonal($personal);
+                $ticket->setFecha_ini($fechaini);
+                $ticket->setId_categoria($categoria);
+                $ticket->setEstado($estado);
+
+                //$tickets = $ticket->getAllfiltick();
+
+                if(isset($_SESSION['admin'])){
+                    $tickets = $ticket->getAllfiltick();
+                }elseif(isset($_SESSION['employed'])){
+                    $ida = $_SESSION['identity']->id;
+                    $ticket->setId_upersonal($ida);
+                    $tickets = $ticket->getAllfilticke();
+                }elseif(isset($_SESSION['identity'])){
+                    $ida = $_SESSION['identity']->id;
+                    $ticket->setId_usuario($ida);
+                    $tickets = $ticket->getAllfilticku();
+                }
             }
         }
         require_once 'views/ticket/gestiont.php';
@@ -235,8 +263,8 @@ class ticketController{
         }
         echo '<script>window.location="'.base_url.'ticket/follow&id='.$id.'"</script>';
     }
-
-    public function gestionadm(){
+/*
+    public function gestionadmf(){
         $ticket = new Ticket();
         $tickets = $ticket->getAllfiltick();
         $ticktadmcant = $ticket->admtickcant();
@@ -244,6 +272,33 @@ class ticketController{
         require_once 'views/admticket/gestiontadm.php';
 
     }
+*/
+    public function gestionadm(){
+        //Paginador
+        if(isset($_GET['pag'])){
+            $pag = $_GET['pag'];
+        }else{
+            $pag = 1;
+        }
+
+        $limite = 10;
+        $offset = ($pag-1)*$limite;
+
+        $ticket = new Ticket();
+        $ticket->setOffset($offset);
+        $ticket->setLimite($limite);
+
+        $tickets = $ticket->getAllpag();
+        $ticktadmcant = $ticket->admtickcant();
+
+        $total = $ticket->getAlltotal();
+
+        $totalP = ceil($total/$limite);
+        $totalPag = $totalP;
+
+        require_once 'views/admticket/gestiontadm.php';
+    }
+
 
     public function filtrotickadm(){
         if(isset($_POST)){
@@ -255,15 +310,25 @@ class ticketController{
             $estado = isset($_POST['estado']) ? $_POST['estado'] : false;
             
             $ticket = new Ticket();
-            $ticket->setId($id);
-            $ticket->setId_usuario($usuario);
-            $ticket->setId_upersonal($personal);
-            $ticket->setFecha_ini($fechaini);
-            $ticket->setId_categoria($categoria);
-            $ticket->setEstado($estado);
 
-            $tickets = $ticket->getAllfiltick();
-            $ticktadmcant = $ticket->admtickcant();
+            $ticket = new Ticket();
+
+            if(strlen(trim($id)) == 0 && strlen(trim($usuario)) == 0 && strlen(trim($personal)) == 0 && strlen(trim($fechaini)) == 0 && strlen(trim($categoria)) == 0 && strlen(trim($estado)) == 0){
+                
+                echo '<script>window.location="'.base_url.'ticket/gestionadm"</script>';
+
+            }else{
+
+                $ticket->setId($id);
+                $ticket->setId_usuario($usuario);
+                $ticket->setId_upersonal($personal);
+                $ticket->setFecha_ini($fechaini);
+                $ticket->setId_categoria($categoria);
+                $ticket->setEstado($estado);
+
+                $tickets = $ticket->getAllfiltick();
+                $ticktadmcant = $ticket->admtickcant();
+            }
         }
         require_once 'views/admticket/gestiontadm.php';
     }
