@@ -18,14 +18,6 @@
 <?Php endif; ?>
 <?Php Utils::deleteSession('delete');?>
 
-<br>
-
-<?Php if(isset($user) && is_object($user)):?>
-    <?Php $url_action = base_url."usuario/filtrousr";?>
-<?Php else:?>
-    <?Php $url_action = base_url."usuario/gestion";?>
-<?Php endif;?>
-
 <form action="<?=base_url?>usuario/filtrousr" method="POST" enctype="multipart/form-data">
     <table class="tablafilt">
         <tr>
