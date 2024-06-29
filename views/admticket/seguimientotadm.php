@@ -1,6 +1,5 @@
 <?Php if(isset($follow) && isset($tic) && is_object($tic)):?>
     <h1>Vista de Seguimiento de Ticket N° <?=$tic->id?></h1>
-    <?Php $url_action = base_url."ticket/save&id=".$tic->id;?>
 <?Php else:?>
     <?Php require_once 'views/admticket/gestiontadm.php'; ?>
 <?Php endif;?>
