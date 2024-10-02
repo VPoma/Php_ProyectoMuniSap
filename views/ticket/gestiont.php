@@ -21,7 +21,7 @@
 <form action="<?=base_url?>ticket/filtrotick" method="POST" enctype="multipart/form-data">
     <table class="tablafilt">
         <tr>
-            <th>Id</th>
+            <th>N°</th>
             <th>Usuario (Apellido)</th>
             <th>Personal (Apellido)</th>
             <th rowspan="4"><input type="submit" value="BUSCAR" name="filtro" id="buttonfil"/></th>
