@@ -2,7 +2,6 @@
 
 require_once 'models/ticket.php';
 require_once 'models/comentarios.php';
-use \Spipu\Html2Pdf\Html2Pdf;
 
 class ticketController{
     
@@ -311,7 +310,7 @@ class ticketController{
             
             $ticket = new Ticket();
 
-            $ticket = new Ticket();
+            //$ticket = new Ticket();
 
             if(strlen(trim($id)) == 0 && strlen(trim($usuario)) == 0 && strlen(trim($personal)) == 0 && strlen(trim($fechaini)) == 0 && strlen(trim($categoria)) == 0 && strlen(trim($estado)) == 0){
                 
