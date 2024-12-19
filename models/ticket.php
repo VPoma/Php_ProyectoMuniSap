@@ -10,7 +10,7 @@ class Ticket{
     private $estado;
     private $fecha_ini;
     private $fecha_fin;
-    private $prioridad;
+    private $horain;
     //variables extra
     private $limite;
     private $offset;
@@ -57,8 +57,8 @@ class Ticket{
         return $this->fecha_fin;
     }
 
-    function getPrioridad(){
-        return $this->prioridad;
+    function getHorain(){
+        return $this->horain;
     }
 
     //variables extra
@@ -107,8 +107,8 @@ class Ticket{
         $this->fecha_fin = $fecha_fin;
     }
 
-    function setPrioridad($prioridad){
-        $this->prioridad = $prioridad;
+    function setHorain($horain){
+        $this->horain = $horain;
     }
 
     //variables extra

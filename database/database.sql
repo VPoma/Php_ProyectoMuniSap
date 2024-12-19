@@ -43,7 +43,7 @@ descripcion     TEXT NOT NULL,
 estado          varchar(50),
 fecha_ini       DATE NOT NULL,
 fecha_fin       DATE,
-prioridad       varchar(50),
+horain          TIME Null,
 CONSTRAINT pk_tickets PRIMARY KEY(id),
 CONSTRAINT fk_ticket_usuario FOREIGN KEY(id_usuario) REFERENCES usuarios(id),
 CONSTRAINT fk_ticket_upersonal FOREIGN KEY(id_upersonal) REFERENCES usuarios(id),
@@ -126,6 +126,9 @@ INSERT INTO `comentarios` (`id`, `id_ticket`, `id_usuario`, `mensaje`, `fecha`, 
 /********************************************************************INSERTAR**************************************************************/
 
 /********************************************************************PRUEBAS SQL***********************************************************/
+
+ALTER TABLE tickets CHANGE prioridad horain time null;
+
 SELECT id FROM usuarios WHERE id_categoria = 15 ORDER BY RAND () LIMIT 1;
 
 SELECT * from usuarios WHERE id = (SELECT id FROM usuarios WHERE id_categoria = 1 ORDER BY RAND () LIMIT 1);
